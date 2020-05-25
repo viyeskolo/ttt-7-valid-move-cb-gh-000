@@ -1,17 +1,25 @@
 require_relative "../lib/valid_move.rb"
 
-Zttt_board = ["","X"," "," "," "," "," "," "," "]
-puts "Enter a position on the board 1-9:"
-user_input = gets.chomp
-number_entered = user_input.to_i - 1
+describe './lib/valid_move.rb' do
 
-def valid_move?(number_entered)
-  number_entered.between?(0, 8) && !(position_taken?(Zttt_board, number_entered))
-end
+  it 'returns true for a valid position on an empty board' do
+    board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+    index = 0
+    expect(valid_move?(board, index)).to be_truthy
+  end
 
-def position_taken?(board, index)
- !(board[index] == " " || board[index] == "" || board[index] == nil)
-end
+  it 'returns nil or false for an occupied position' do
+    board = [" ", " ", " ", " ", "X", " ", " ", " ", " "]
+    index = 4
 
-puts valid_move?(number_entered)
+    expect(valid_move?(board, index)).to be_falsey
+  end
+
+  it 'returns nil or false for a position that is not on the board' do
+    board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+    index = 100
+
+    expect(valid_move?(board, index)).to be_falsey
+  end
+
 end
