@@ -1,25 +1,15 @@
-def current_player(board)
-  turn_count(board) % 2 == 0? "X" : "O"
+ttt_board = ["","X"," "," "," "," "," "," "," "]
+puts "Enter a position on the board 1-9:"
+user_input = gets.chomp
+number_entered = user_input.to_i - 1
+
+def valid_move?(number_entered, board)
+  number_entered.between?(0, 8) && !(position_taken?(board, number_entered))
 end
 
-def turn(board)
-  puts "Please enter 1-9:"
-  user_input = gets.strip
-  index = input_to_index(user_input)
-  if valid_move?(board, index)
-    player_move(board, index, current_player(board))
-    display_board(board)
-  else
-    turn(board)
-  end
+def position_taken?(board, index)
+ !(board[index] == " " || board[index] == "" || board[index] == nil)
 end
 
-def turn_count(board)
-  counter = 0
-  board.each {|space|
-    if space == "X" || space == "O"
-      counter += 1
-    end
-  }
-  counter
+valid_move?(number_entered, ttt_board)
 end
